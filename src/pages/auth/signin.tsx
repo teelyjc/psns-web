@@ -6,11 +6,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import Navbar from "@/components/common/Navbar";
-import { useCurrentUserQuery, useSignInMutation } from "@/hooks/AuthHooks";
+import Navbar from "@/components/common/navbar-nav";
+import { SignInForm } from "@/components/features/forms/signin-form";
+import { useCurrentUserQuery, useSignInMutation } from "@/hooks/auth-hooks";
 import { Routes as RouteConstants } from "@/libs/constants";
 
 const SignInPage: FunctionComponent = () => {
@@ -25,55 +26,30 @@ const SignInPage: FunctionComponent = () => {
     }
   }, [user, navigate, isSignInSuccess]);
 
-  const [userLoginData, setUserLoginData] = useState({
+  const [data, setData] = useState({
     username: "",
     password: "",
   });
 
-  const handleChangeUserLoginData = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
-    setUserLoginData({ ...userLoginData, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
-  const handleFormSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    signin({
-      username: userLoginData.username,
-      password: userLoginData.password,
-    });
+    signin({ username: data.username, password: data.password });
   };
 
   return (
     <Fragment>
       <Navbar />
       <Container className="border p-5 shadow mt-5 w-50">
-        <Form onSubmit={handleFormSubmit}>
-          <h1 className="text-center mb-4">เข้าสู่ระบบ Pet-System</h1>
-          <Form.Group className="mb-3">
-            <FloatingLabel label="ชื่อผู้ใช้งาน" className="mb-3">
-              <Form.Control
-                type="text"
-                name="username"
-                onChange={handleChangeUserLoginData}
-                value={userLoginData.username}
-              />
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <FloatingLabel label="รหัสผ่าน" className="mb-3">
-              <Form.Control
-                type="password"
-                name="password"
-                onChange={handleChangeUserLoginData}
-                value={userLoginData.password}
-              />
-            </FloatingLabel>
-          </Form.Group>
-
-          <Button variant="success" className="w-100 py-2" type="submit">
-            เข้าสู่ระบบ
-          </Button>
-        </Form>
+        <SignInForm
+          data={data}
+          onSubmit={handleSubmit}
+          onInputChange={handleInputChange}
+        />
       </Container>
     </Fragment>
   );
