@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { useCurrentUserQuery, useSignOutMutation } from "@/hooks/AuthHooks";
+import { useCurrentUserQuery, useSignOutMutation } from "@/hooks/auth-hooks";
 import { Routes as RouteConstants } from "@/libs/constants";
 
 const Navbar: FunctionComponent = () => {
@@ -43,12 +43,10 @@ const Navbar: FunctionComponent = () => {
                 <NavDropdown.Item as={Link} to={RouteConstants.Preferences}>
                   ตั้งค่าผู้ใช้งาน
                 </NavDropdown.Item>
-                {/*
-                <NavDropdown.Item>Another action</NavDropdown.Item>
-                <NavDropdown.Item>Something</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item>Separated link</NavDropdown.Item>
-                */}
+                <NavDropdown.Item as={Link} to={RouteConstants.Users}>
+                  ผู้ใช้งานทั้งหมด
+                </NavDropdown.Item>
               </NavDropdown>
               <Button variant="danger" onClick={() => signout()}>
                 ออกจากระบบ
