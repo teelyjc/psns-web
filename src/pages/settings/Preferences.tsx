@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  Fragment,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -16,13 +10,13 @@ import {
   Toast,
 } from "react-bootstrap";
 
-import Navbar from "@/components/common/Navbar";
-import { useCurrentUserQuery } from "@/hooks/AuthHooks";
-import { usePetsQuery } from "@/hooks/PetHooks";
-import { useEditUserPreferences } from "@/hooks/UserHooks";
+import Navbar from "@/components/common/navbar-nav";
+import { useCurrentUserQuery } from "@/hooks/auth-hooks";
+import { usePetsQuery } from "@/hooks/pets-hooks";
+import { useEditUserPreferences } from "@/hooks/users-hooks";
 import { Pet } from "@/types.d";
 
-const Preferences: FunctionComponent = () => {
+export default function Preferences() {
   const [userInfo, setUserInfo] = useState({
     firstname: "",
     lastname: "",
@@ -148,6 +142,4 @@ const Preferences: FunctionComponent = () => {
       </Container>
     </Fragment>
   );
-};
-
-export default Preferences;
+}
