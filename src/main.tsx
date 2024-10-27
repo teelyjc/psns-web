@@ -4,14 +4,15 @@ import "@/main.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router-dom";
 
-import ProtectedRoute from "@/components/features/ProtectedRoute";
-import { Routes as RouteConstants } from "@/libs/constants";
-import SignInPage from "@/pages/auth/SignInPage";
-import SignUpPage from "@/pages/auth/SignUpPage";
-import HomePage from "@/pages/HomePage";
-import Preferences from "@/pages/preferences/Preferences";
+import { ProtectedRoute } from "@/components/features/protected-route";
+import { Routes } from "@/libs/constants";
+import Users from "@/pages/admin/users";
+import SignInPage from "@/pages/auth/signin";
+import SignUpPage from "@/pages/auth/signup";
+import IndexPage from "@/pages/index";
+import Preferences from "@/pages/settings/preferences";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,21 +26,22 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path={RouteConstants.Home} element={<HomePage />} />
+        <RouterRoutes>
+          <Route path={Routes.Home} element={<IndexPage />} />
 
-          <Route path={RouteConstants.SignIn} element={<SignInPage />} />
-          <Route path={RouteConstants.SignUp} element={<SignUpPage />} />
+          <Route path={Routes.SignIn} element={<SignInPage />} />
+          <Route path={Routes.SignUp} element={<SignUpPage />} />
 
           <Route
-            path={RouteConstants.Preferences}
-            element={
-              <ProtectedRoute>
-                <Preferences />
-              </ProtectedRoute>
-            }
+            path={Routes.Preferences}
+            element={<ProtectedRoute children={<Preferences />} />}
           />
-        </Routes>
+
+          <Route
+            path={Routes.Users}
+            element={<ProtectedRoute children={<Users />} />}
+          />
+        </RouterRoutes>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>
