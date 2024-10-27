@@ -1,14 +1,15 @@
 export const Routes = {
   Home: "/",
-  SignIn: "/signin",
-  SignUp: "/signup",
-  Preferences: "/preferences",
+  SignIn: "/auth/signin",
+  SignUp: "/auth/signup",
+  Preferences: "/settings/preferences",
+  Users: "/admin/users",
 };
 
 export const ApiRoutes = {
-  SignIn: "/signin",
-  SignUp: "/signup",
-  SignOut: "/signout",
+  SignUp: "/users/signup",
+  SignIn: "/auth/signin",
+  SignOut: "/auth/signout",
   Authenticate: "/auth/me",
   Pets: "/pets",
   UpdateUserById: (id: string) => {
@@ -18,4 +19,5 @@ export const ApiRoutes = {
 
 export const Keys = {
   CurrentUser: "current-user",
+  Users: "all-users",
 };
